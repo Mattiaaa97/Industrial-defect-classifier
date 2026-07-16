@@ -1,0 +1,19 @@
+# Ambiente virtuale di PyCharm (contiene le librerie installate sul tuo PC)
+.venv/
+venv/
+
+# File di configurazione interni di PyCharm (non servono ad altri sviluppatori)
+.idea/
+
+# File temporanei di Python generati durante l'esecuzione del codice
+__pycache__/
+*.pyc
+
+# Dataset locale (le cartelle sani e difettosi non vanno su GitHub perché pesanti)
+dataset_fabbrica/
+
+# File di dati generato dallo script di pre-elaborazione
+factory_dataset.npz
+
+# File di log generati durante l'esecuzione dei tuoi script
+*.log
