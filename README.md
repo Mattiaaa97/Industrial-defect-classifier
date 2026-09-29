@@ -1,76 +1,49 @@
-Industrial Defect Classifier (ML vs. Deep Learning)
-This repository contains a modular and strongly-typed Python project designed to classify industrial components as either Healthy (Class 0) or Defective (Class 1) using computer vision.
+# 🚀 Industrial Defect Classifier: Dai Dati al Deep Learning
 
-The project evaluates and compares two different approaches:
+Benvenuti nel repository del progetto **Industrial Defect Classifier**. Questo progetto documenta lo sviluppo di un sistema di computer vision e intelligenza artificiale per il controllo qualità industriale, strutturato attraverso fasi progressive: dalla preparazione delle immagini alla comparazione tra algoritmi classici di Machine Learning e reti neurali di Deep Learning.
 
-A Deep Learning Multi-Layer Perceptron (MLP) built with Keras/TensorFlow.
+---
 
-A classical Decision Tree Classifier built with Scikit-Learn, including pixel feature importance visualization.
+## 🛠️ Organizzazione dei Moduli
 
-Key Features & Best Practices
-Strong Static Typing: Fully typed Python codebase using type hints (np.ndarray, Image.Image, list[str], etc.) for robust development.
+### 🔹 Fase 1: Ingestion e Preprocessing Dati
+* **Modulo 01: Validazione Percorsi** - Controllo di sicurezza e integrità delle directory locali delle immagini.
+* **Modulo 02: Image Processing con Pillow** - Lettura, ridimensionamento e conversione dei file grafici in matrici NumPy.
+* **Modulo 03: Normalizzazione Numerica** - Riscalatura dei pixel da [0–255] all'intervallo `[0.0, 1.0]` e flattening a 4096 dimensioni.
+* **Modulo 04: Serializzazione Compressa** - Creazione automatica dell'archivio binario compatto `factory_dataset.npz` ad accesso rapido.
 
-Modular Architecture: Separated preprocessing pipeline from the model training workflow to optimize system memory (RAM).
+### 🔹 Fase 2: Architettura e Standard di Sviluppo
+* **Modulo 05: Tipizzazione Forte (Type Hints)** - Utilizzo rigoroso di annotazioni di tipo (`np.ndarray`, `Image.Image`) per un codice robusto.
+* **Modulo 06: Logging Strutturato** - Tracciamento degli stati di esecuzione su console e su file tramite modulo `logging`.
+* **Modulo 07: Separazione delle Pipeline** - Disaccoppiamento tra preprocessing dei dati e sessione di addestramento per ottimizzare la RAM.
+* **Modulo 08: Split Stratificato** - Bilanciamento rigoroso tra classi (Sani vs Difettosi) per i set di train e test.
 
-Binary Serialization (.npz): Image matrices and labels are normalized, flattened, and exported as a compressed NumPy archive for lightning-fast loading.
+### 🔹 Fase 3: Machine Learning & Spiegabilità (XAI)
+* **Modulo 09: Decision Tree Classifier** - Addestramento dell'albero decisionale basato su impurità di Gini e profondità controllata.
+* **Modulo 10: Feature Importance Heatmap** - Estrazione visiva con Seaborn dei pixel discriminanti che causano l'anomalia.
+* **Modulo 11: Metriche di Performance** - Valutazione comparativa su accuratezza, precisione e matrice di confusione.
 
-Production-Ready Logging: Complete execution tracking via Python’s logging library, outputting status to both the console and specialized log files.
+### 🔹 Fase 4: Deep Learning con Reti Neurali
+* **Modulo 12: Architettura Keras MLP** - Progettazione di un percettrone multistrato (4096 nodi input, Dense 32 nodi con ReLU).
+* **Modulo 13: Ottimizzazione e Convergenza** - Configurazione di Adam (`lr=0.0001`) e funzione di costo Binary Cross-Entropy.
+* **Modulo 14: Validazione e Confronto** - Analisi comparativa diretta delle performance tra albero decisionale e rete neurale.
 
-Stratified Splits: Ensures equal class representation (Healthy vs. Defective) in both training and testing datasets.
+---
 
-Project Structure
-Plaintext
-├── .gitignore                      # Tells Git which files to ignore (local dataset, logs, virtual environment)
-├── README.md                       # Project presentation and documentation
-├── Reti_neurali_preprocessing.py   # Script 1: Directory validation, image loading, normalization, and export
-├── Reti_neurali_testing.py         # Script 2: Data loading, Keras MLP, and Decision Tree training
-Pipeline Walkthrough
-1. Data Preprocessing (Reti_neurali_preprocessing.py)
-Validates local directories and checks for errors safely.
+## 🏆 Progetto Finale: Pipeline Completa di Classificazione
+Il flusso operativo culmina nell'esecuzione integrata dei due script applicativi:
 
-Loads images using Pillow (PIL), converting them into raw NumPy matrices.
+1. **Preprocessing Pipeline (`Reti_neurali_preprocessing.py`)**: Elaborazione batch, normalizzazione ed export dei vettori numerici.
+2. **Model Training & Benchmark (`Reti_neurali_testing.py`)**: Addestramento simultaneo di Keras MLP e Decision Tree con generazione della mappa di calore visiva.
 
-Performs pixel intensity normalization (rescaling from 0-255 to [0.0, 1.0]).
+---
 
-Dynamically flattens 2D 64x64 images into a 4096-dimensional vector.
+## 🎓 Competenze Acquisite
+* **Linguaggi:** Python 3.x (Modular Design, Strong Typing, Production Logging).
+* **AI & Machine Learning:** TensorFlow / Keras, Scikit-Learn.
+* **Computer Vision & Dati:** NumPy, Pillow (PIL).
+* **Visualizzazione:** Matplotlib, Seaborn.
 
-Automatically serializes arrays into a compact factory_dataset.npz archive.
+---
 
-2. Model Architecture & Training (Reti_neurali_testing.py)
-Keras MLP Neural Network:
-
-Input layer: 4096 nodes.
-
-Hidden layer: 32 nodes (ReLU activation).
-
-Output layer: 1 node (Sigmoid activation for binary classification).
-
-Loss function: Binary Cross-Entropy.
-
-Optimizer: Adam (lr = 0.0001).
-
-Decision Tree Classifier:
-
-Criterion: Gini impurity.
-
-Max depth: 5.
-
-Generates a Pixel Importance Heatmap using Seaborn to visually isolate which areas of the component images trigger a "defective" flag.
-
-Getting Started
-Prerequisites
-Make sure you have the required libraries installed:
-
-Bash
-pip install numpy pillow matplotlib seaborn tensorflow scikit-learn
-Running the Pipeline
-Place your raw images inside local directories: dataset_fabbrica/sani/ and dataset_fabbrica/difettosi/.
-
-Run the preprocessing step:
-
-Bash
-python Reti_neurali_preprocessing.py
-Train and compare the models:
-
-Bash
-python Reti_neurali_testing.py
+**Progetto realizzato da Mattia Dellanoce**
